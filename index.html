@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يوم التخرج | الدكتور أحمد</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Alexandria:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
+    <style>
+        :root {
+            --uob-blue: #003366;
+            --gold: #c5a059;
+            --white: #ffffff;
+            --bg: #f4f7f9;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            font-family: 'Alexandria', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            perspective: 1000px;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* العداد التنازلي - منفصل في الأعلى */
+        .countdown-wrap {
+            background: var(--uob-blue);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 10px 25px rgba(0,51,102,0.1);
+        }
+
+        .count-box { display: flex; flex-direction: column; }
+        .num { font-size: 22px; font-weight: 700; color: var(--gold); }
+        .lab { font-size: 10px; opacity: 0.8; }
+
+        /* الكارت المتحرك */
+        .tilt-card {
+            background: var(--white);
+            padding: 45px 30px;
+            border-radius: 35px;
+            box-shadow: 0 45px 90px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.8);
+            transform-style: preserve-3d; /* تفعيل العمق */
+            cursor: pointer;
+        }
+
+        /* صورة الخريج ببروز للخارج */
+        .photo-wrap {
+            width: 170px;
+            height: 170px;
+            margin: 0 auto 30px;
+            border-radius: 30px;
+            padding: 6px;
+            background: linear-gradient(135deg, var(--uob-blue), var(--gold));
+            transform: translateZ(60px); /* تبرز الصورة عند الميلان */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .photo-wrap img {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .info-content { transform: translateZ(40px); }
+
+        h1 {
+            font-family: 'Amiri', serif;
+            font-size: 35px;
+            color: var(--uob-blue);
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 35px;
+        }
+
+        /* توزيع المعلومات المنفصل */
+        .details-list {
+            text-align: right;
+            margin-bottom: 35px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fcfcfc;
+            border-radius: 18px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .detail-row i {
+            font-size: 20px;
+            color: var(--gold);
+            width: 30px;
+            text-align: center;
+        }
+
+        .text-group label {
+            display: block;
+            font-size: 10px;
+            color: #aaa;
+            margin-bottom: 2px;
+        }
+
+        .text-group span {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--uob-blue);
+        }
+
+        /* زر الموقع */
+        .btn-link {
+            display: block;
+            background: var(--uob-blue);
+            color: white;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,51,102,0.2);
+            transform: translateZ(50px);
+        }
+
+        .btn-link:hover { background: var(--gold); }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="countdown-wrap">
+            <div class="count-box"><span class="num" id="d">00</span><span class="lab">يوم</span></div>
+            <div class="count-box"><span class="num" id="h">00</span><span class="lab">ساعة</span></div>
+            <div class="count-box"><span class="num" id="m">00</span><span class="lab">دقيقة</span></div>
+        </div>
+
+        <div class="tilt-card" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.3">
+            
+            <div class="photo-wrap">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRs5wtMU-_Dm8jCrqSbUJbS4EwF3ghjinwNg&s" alt="صورة الخريج">
+            </div>
+
+            <div class="info-content">
+                <h1>الدكتور عبدالله محمد</h1>
+                
+                <p class="message">
+                    بمشاعر الفخر والاعتزاز، أدعوكم لمشاركتي لحظات تخرجي والتقاط الصور التذكارية في رحاب جامعتي.
+                </p>
+
+                <div class="details-list">
+                    <div class="detail-row">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="text-group">
+                            <label>موعدنا</label>
+                            <span>الخميس، 12 حزيران | 9:00 صباحاً</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="text-group">
+                            <label>الموقع</label>
+                            <span>جامعة بغداد - الجادرية | كلية الطب</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="btn-link">
+                    📍 عرض الموقع على الخريطة
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تفعيل حركة الكارت
+        VanillaTilt.init(document.querySelector(".tilt-card"), {
+            max: 12,
+            speed: 500,
+            glare: true,
+            "max-glare": 0.3,
+            gyroscope: true // يدعم الحركة عند إمالة الموبايل فعلياً
+        });
+
+        // تشغيل العداد التنازلي
+        const target = new Date("June 12, 2026 09:00:00").getTime();
+        function update() {
+            const now = new Date().getTime();
+            const diff = target - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById("d").innerText = days < 10 ? "0"+days : days;
+            document.getElementById("h").innerText = hours < 10 ? "0"+hours : hours;
+            document.getElementById("m").innerText = mins < 10 ? "0"+mins : mins;
+        }
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
