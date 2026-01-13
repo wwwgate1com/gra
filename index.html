@@ -3,228 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يوم التخرج | الدكتور أحمد</title>
+    <title>دعوة المهندس الملكية | ستوديو فراهي</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Alexandria:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Alexandria:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <style>
         :root {
-            --uob-blue: #003366;
-            --gold: #c5a059;
-            --white: #ffffff;
-            --bg: #f4f7f9;
+            --gold: #b5935a; /* ذهبي أعمق ليناسب الخلفية البيضاء */
+            --light-bg: #ffffff;
+            --soft-gray: #f8f9fa;
+            --text-main: #2d2d2d;
+            --glass-dark: rgba(0, 0, 0, 0.03);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            margin: 0;
-            background-color: var(--bg);
+            background-color: var(--light-bg);
+            color: var(--text-main);
             font-family: 'Alexandria', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* خلفية الشبكة الهندسية الفاتحة */
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(181, 147, 90, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(181, 147, 90, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        section {
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            perspective: 1000px;
-            padding: 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 450px;
+            padding: 60px 20px;
             text-align: center;
         }
 
-        /* العداد التنازلي - منفصل في الأعلى */
-        .countdown-wrap {
-            background: var(--uob-blue);
-            color: white;
-            padding: 20px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0 10px 25px rgba(0,51,102,0.1);
-        }
-
-        .count-box { display: flex; flex-direction: column; }
-        .num { font-size: 22px; font-weight: 700; color: var(--gold); }
-        .lab { font-size: 10px; opacity: 0.8; }
-
-        /* الكارت المتحرك */
-        .tilt-card {
-            background: var(--white);
-            padding: 45px 30px;
-            border-radius: 35px;
-            box-shadow: 0 45px 90px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.8);
-            transform-style: preserve-3d; /* تفعيل العمق */
-            cursor: pointer;
-        }
-
-        /* صورة الخريج ببروز للخارج */
-        .photo-wrap {
-            width: 170px;
-            height: 170px;
-            margin: 0 auto 30px;
-            border-radius: 30px;
-            padding: 6px;
-            background: linear-gradient(135deg, var(--uob-blue), var(--gold));
-            transform: translateZ(60px); /* تبرز الصورة عند الميلان */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .photo-wrap img {
-            width: 100%;
-            height: 100%;
-            border-radius: 24px;
-            object-fit: cover;
-            background: #eee;
-        }
-
-        .info-content { transform: translateZ(40px); }
-
-        h1 {
+        /* 1. الآية القرآنية */
+        .quran-section { background: white; }
+        .quran-text {
             font-family: 'Amiri', serif;
-            font-size: 35px;
-            color: var(--uob-blue);
-            margin-bottom: 15px;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            color: var(--text-main);
+            max-width: 800px;
+            line-height: 2;
+            position: relative;
+        }
+        .quran-text::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
         }
 
-        .message {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 35px;
-        }
-
-        /* توزيع المعلومات المنفصل */
-        .details-list {
-            text-align: right;
-            margin-bottom: 35px;
-        }
-
-        .detail-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+        /* 2. صورة الخريج */
+        .profile-container {
+            position: relative;
             padding: 15px;
-            background: #fcfcfc;
-            border-radius: 18px;
-            border: 1px solid #f0f0f0;
+            background: white;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            border-radius: 200px 200px 10px 10px;
+        }
+        .profile-section img {
+            width: 280px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 200px 200px 0 0;
+            border: 1px solid #eee;
         }
 
-        .detail-row i {
-            font-size: 20px;
+        .engineer-title {
+            margin-top: 25px;
+        }
+        .engineer-title h2 { font-family: 'Amiri'; font-size: 2.5rem; color: var(--text-main); }
+        .engineer-title span { color: var(--gold); font-weight: 600; letter-spacing: 2px; }
+
+        /* 3. كلام المهندس */
+        .speech-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 2;
+            max-width: 600px;
+            color: #555;
+            font-style: italic;
+        }
+
+        /* 4. قسم التاريخ والخوذة الهندسية */
+        .helmet-icon {
+            font-size: 3.5rem;
             color: var(--gold);
-            width: 30px;
-            text-align: center;
+            margin-bottom: -10px;
+            position: relative;
+            z-index: 2;
         }
-
-        .text-group label {
-            display: block;
-            font-size: 10px;
-            color: #aaa;
-            margin-bottom: 2px;
+        .date-box {
+            border: 1px solid var(--gold);
+            padding: 40px;
+            min-width: 280px;
+            background: white;
+            box-shadow: 0 15px 40px rgba(181, 147, 90, 0.1);
         }
+        .date-box h3 { font-size: 2.2rem; margin: 10px 0; color: var(--text-main); }
 
-        .text-group span {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--uob-blue);
-        }
-
-        /* زر الموقع */
-        .btn-link {
-            display: block;
-            background: var(--uob-blue);
+        /* أزرار التواصل */
+        .btn-action {
+            margin-top: 30px;
+            padding: 18px 45px;
+            background: var(--text-main);
             color: white;
             text-decoration: none;
-            padding: 20px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 16px;
-            transition: 0.3s;
-            box-shadow: 0 10px 25px rgba(0,51,102,0.2);
-            transform: translateZ(50px);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: 0.4s;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        .btn-action:hover { background: var(--gold); transform: translateY(-3px); }
 
-        .btn-link:hover { background: var(--gold); }
+        .footer-logo {
+            margin-top: 80px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #bbb;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="container">
-        <div class="countdown-wrap">
-            <div class="count-box"><span class="num" id="d">00</span><span class="lab">يوم</span></div>
-            <div class="count-box"><span class="num" id="h">00</span><span class="lab">ساعة</span></div>
-            <div class="count-box"><span class="num" id="m">00</span><span class="lab">دقيقة</span></div>
+    <div class="grid-overlay"></div>
+
+    <section class="quran-section" data-aos="fade-down">
+        <div class="quran-text">
+            "يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ"
         </div>
+        <p style="color: var(--gold); font-weight: 600;">صدق الله العظيم</p>
+    </section>
 
-        <div class="tilt-card" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.3">
-            
-            <div class="photo-wrap">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRs5wtMU-_Dm8jCrqSbUJbS4EwF3ghjinwNg&s" alt="صورة الخريج">
-            </div>
-
-            <div class="info-content">
-                <h1>الدكتور عبدالله محمد</h1>
-                
-                <p class="message">
-                    بمشاعر الفخر والاعتزاز، أدعوكم لمشاركتي لحظات تخرجي والتقاط الصور التذكارية في رحاب جامعتي.
-                </p>
-
-                <div class="details-list">
-                    <div class="detail-row">
-                        <i class="fas fa-calendar-alt"></i>
-                        <div class="text-group">
-                            <label>موعدنا</label>
-                            <span>الخميس، 12 حزيران | 9:00 صباحاً</span>
-                        </div>
-                    </div>
-
-                    <div class="detail-row">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div class="text-group">
-                            <label>الموقع</label>
-                            <span>جامعة بغداد - الجادرية | كلية الطب</span>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="#" class="btn-link">
-                    📍 عرض الموقع على الخريطة
-                </a>
-            </div>
+    <section class="profile-section" data-aos="fade-up">
+        <div class="profile-container">
+            <img src="https://scontent-ist1-1.xx.fbcdn.net/v/t39.30808-6/485147693_1056150366546820_4415413896026473388_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ooL_FdoLBfUQ7kNvwG36wpV&_nc_oc=AdmiVEsq8kBFSu-GCDgUjfn0nbwcwibYMWrO6HULkkEyyfH1w-NLJumQJFQZGBq1Of8&_nc_zt=23&_nc_ht=scontent-ist1-1.xx&_nc_gid=zd71JugbUSPCSUU0bY8ibw&oh=00_Afrx02Ol1euDRVcDa0JQdX1Hxh9iAoRVWKJSYprcxqF7zQ&oe=696C7423" alt="صورة المهندس">
         </div>
-    </div>
+        <div class="engineer-title">
+            <h2>المهندس عبدالله العبيدي</h2>
+            <span>الجامعة التكنلوجة | هندسة الطرق والمطارات</span>
+        </div>
+    </section>
 
+    <section class="speech-section" data-aos="zoom-in">
+        <p>
+            "بعد سنوات من التخطيط والبناء، حان الوقت لافتتاح مرحلة جديدة من الحياة.. دعوتكم تزيد فرحتي اكتمالاً."
+        </p>
+    </section>
+
+    <section class="date-section" data-aos="flip-right">
+        <div class="helmet-icon">
+            <i class="fa-solid fa-helmet-safety"></i>
+        </div>
+        <div class="date-box">
+            <p style="color: var(--gold); letter-spacing: 2px;">يوم التخرج الكبير</p>
+            <h3>20 مايو 2026</h3>
+            <p>الساعة 4:00 عصراً</p>
+        </div>
+    </section>
+
+    <section data-aos="fade-up">
+        <h2 style="font-family: 'Amiri'; font-size: 2rem; margin-bottom: 20px;">نتشرف بحضوركم لمشاركتنا الفرحة</h2>
+        <p style="color: #666;">قاعة حي السلام الملكية - بعقوبة</p>
+        
+        <a href="#" class="btn-action">
+            عرض موقع القاعة <i class="fa-solid fa-location-dot"></i>
+        </a>
+        
+        <div class="footer-logo">
+            DESIGNED BY FARAHI STUDIO
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // تفعيل حركة الكارت
-        VanillaTilt.init(document.querySelector(".tilt-card"), {
-            max: 12,
-            speed: 500,
-            glare: true,
-            "max-glare": 0.3,
-            gyroscope: true // يدعم الحركة عند إمالة الموبايل فعلياً
+        AOS.init({
+            duration: 1000,
+            once: false,
+            easing: 'ease-out-back'
         });
-
-        // تشغيل العداد التنازلي
-        const target = new Date("June 12, 2026 09:00:00").getTime();
-        function update() {
-            const now = new Date().getTime();
-            const diff = target - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            
-            document.getElementById("d").innerText = days < 10 ? "0"+days : days;
-            document.getElementById("h").innerText = hours < 10 ? "0"+hours : hours;
-            document.getElementById("m").innerText = mins < 10 ? "0"+mins : mins;
-        }
-        setInterval(update, 1000);
-        update();
     </script>
 </body>
 </html>
